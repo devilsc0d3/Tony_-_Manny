@@ -25,14 +25,14 @@ def create_tables():
             cursor = connection.cursor()
             # creating tables
             users_table = """ CREATE TABLE IF NOT EXISTS users (
-                                        user_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+                                        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                                         first_name VARCHAR(255) NOT NULL,
                                         last_Name VARCHAR(255) NOT NULL,
                                         phone_number INTEGER
                                     ); """
 
             orders_table = """ CREATE TABLE IF NOT EXISTS orders (
-                                        order_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+                                        order_id INTEGER PRIMARY KEY AUTOINCREMENT,
                                         user_id INTEGER NOT NULL,
                                         click_and_collect_id INTEGER,
                                         table_reservation_id INTEGER,
@@ -67,15 +67,18 @@ def create_tables():
 
 
 def fill_tables():
-    conn = sqlite3.connect('./database/sql.db')
+    conn = open_database()
     cur = conn.cursor()
-
+    """
     cur.execute("INSERT INTO menu(title, recipe, rank) VALUES (?, ?, ?)",
                 ('Burger', 'Bun, Meat, Tomato, Onion, Cheese', 1))
     cur.execute("INSERT INTO menu(title, recipe, rank) VALUES (?, ?, ?)",
                 ('Fries', 'Potato, Salt, Oil', 2))
     cur.execute("INSERT INTO menu(title, recipe, rank) VALUES (?, ?, ?)",
                 ('Soda', 'Soda, Ice', 3))
+    """
+    cur.execute("INSERT INTO users(first_name, last_name, phone_number) VALUES (?,?,?)",
+                ('adan', 'laldy', '454545454545454545'))
 
     conn.commit()
     conn.close()

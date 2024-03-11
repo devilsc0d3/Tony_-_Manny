@@ -2,7 +2,7 @@ import sqlite3
 
 
 def menu_add_service(title, recipe, rank):
-    connection = sqlite3.connect('../sql.db')
+    connection = sqlite3.connect('../database/sql.db')
     cur = connection.cursor()
     cur.execute(f"INSERT INTO Menu(title, recipe, rank) VALUES ('{title}', '{recipe}', '{rank}')")
     connection.commit()
@@ -10,7 +10,7 @@ def menu_add_service(title, recipe, rank):
 
 
 def menu_get_all_service():
-    connection = sqlite3.connect('../sql.db')
+    connection = sqlite3.connect('../database/sql.db')
     cur = connection.cursor()
     cur.execute('SELECT * FROM Menu')
     rows = cur.fetchall()
@@ -19,7 +19,7 @@ def menu_get_all_service():
 
 
 def menu_delete_service(title):
-    connection = sqlite3.connect('../sql.db')
+    connection = sqlite3.connect('../database/sql.db')
     cur = connection.cursor()
     cur.execute(f"DELETE FROM Menu WHERE name = '{title}'")
     connection.commit()
@@ -27,7 +27,7 @@ def menu_delete_service(title):
 
 
 def menu_update_service(name, recipe, rank):
-    connection = sqlite3.connect('../sql.db')
+    connection = sqlite3.connect('../database/sql.db')
     cur = connection.cursor()
     cur.execute(f"UPDATE Menu SET recipe = '{recipe}', rank = '{rank}' WHERE name = '{name}'")
     connection.commit()
