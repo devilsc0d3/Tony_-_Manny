@@ -20,6 +20,7 @@ def click_and_collect_get_all_service():
     return rows
 
 
+
 def click_and_collect_delete_service(click_and_collect_id):
     connection = open_database()
     cursor = connection.cursor()
