@@ -31,7 +31,7 @@ def create_tables():
                                         phone_number INTEGER
                                     ); """
 
-            dishes_table = """ CREATE TABLE IF NOT EXISTS dishes (
+            dishes_table = """ CREATE TABLE IF NOT EXISTS dishe (
                                     dishe_id INTEGER PRIMARY KEY AUTOINCREMENT,
                                     rank INTEGER NOT NULL,
                                     title VARCHAR(255) NOT NULL,
@@ -69,7 +69,7 @@ def create_tables():
                         drink_id INTEGER,
                         date DATETIME,
                         FOREIGN KEY (user_id) REFERENCES users (user_id),
-                        FOREIGN KEY (dish_id) REFERENCES dishes (dish_id),
+                        FOREIGN KEY (dish_id) REFERENCES dishe (dish_id),
                         FOREIGN KEY (drink_id) REFERENCES drinks (drink_id)
                     ); """
 
@@ -91,15 +91,17 @@ def fill_tables():
     conn = open_database()
     cur = conn.cursor()
     """
-    cur.execute("INSERT INTO menu(title, recipe, rank) VALUES (?, ?, ?)",
+    cur.execute("INSERT INTO dishe(title, recipe, rank) VALUES (?, ?, ?)",
                 ('Burger', 'Bun, Meat, Tomato, Onion, Cheese', 1))
-    cur.execute("INSERT INTO menu(title, recipe, rank) VALUES (?, ?, ?)",
+    cur.execute("INSERT INTO dishe(title, recipe, rank) VALUES (?, ?, ?)",
                 ('Fries', 'Potato, Salt, Oil', 2))
-    cur.execute("INSERT INTO menu(title, recipe, rank) VALUES (?, ?, ?)",
+    cur.execute("INSERT INTO dishe(title, recipe, rank) VALUES (?, ?, ?)",
                 ('Soda', 'Soda, Ice', 3))
     """
     cur.execute("INSERT INTO users(first_name, last_name, phone_number) VALUES (?,?,?)",
                 ('adan', 'laldy', '454545454545454545'))
+
+
 
     conn.commit()
     conn.close()
