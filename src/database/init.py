@@ -31,7 +31,7 @@ def create_tables():
                                         phone_number INTEGER
                                     ); """
 
-            dishes_table = """ CREATE TABLE IF NOT EXISTS dishe (
+            dishes_table = """ CREATE TABLE IF NOT EXISTS dishes (
                                     dishe_id INTEGER PRIMARY KEY AUTOINCREMENT,
                                     rank INTEGER NOT NULL,
                                     title VARCHAR(255) NOT NULL,
@@ -53,7 +53,7 @@ def create_tables():
                         price FLOAT NOT NULL
                     ); """
 
-            reservations_table = """ CREATE TABLE IF NOT EXISTS reservations (
+            reservations_table = """ CREATE TABLE IF NOT EXISTS reservations_table (
                         reservation_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         user_id INTEGER,
                         table_id INTEGER,
@@ -90,18 +90,19 @@ def create_tables():
 def fill_tables():
     conn = open_database()
     cur = conn.cursor()
-    """
-    cur.execute("INSERT INTO dishe(title, recipe, rank) VALUES (?, ?, ?)",
-                ('Burger', 'Bun, Meat, Tomato, Onion, Cheese', 1))
-    cur.execute("INSERT INTO dishe(title, recipe, rank) VALUES (?, ?, ?)",
-                ('Fries', 'Potato, Salt, Oil', 2))
-    cur.execute("INSERT INTO dishe(title, recipe, rank) VALUES (?, ?, ?)",
-                ('Soda', 'Soda, Ice', 3))
-    """
+
     cur.execute("INSERT INTO users(first_name, last_name, phone_number) VALUES (?,?,?)",
-                ('adan', 'laldy', '454545454545454545'))
-
-
+                ('adan', 'Laldy', '454545454545454545'))
+    cur.execute("INSERT INTO tables(rank, place) VALUES (?,?)",
+                (1, 1))
+    cur.execute("INSERT INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
+                (1, 'dish1', 'recipe1', 10, 100))
+    cur.execute("INSERT INTO drinks(name, recipe, quantity, price) VALUES (?,?,?,?)",
+                ('drink1', 'recipe1', 100, 5))
+    cur.execute("INSERT INTO reservations_table(user_id, table_id, date) VALUES (?,?,?)",
+                (1, 1, '2021-01-01 12:00:00'))
+    cur.execute("INSERT INTO click_and_collects(user_id, dish_id, drink_id, date) VALUES (?,?,?,?)",
+                (1, 1, 1, '2021-01-01 12:00:00'))
 
     conn.commit()
     conn.close()

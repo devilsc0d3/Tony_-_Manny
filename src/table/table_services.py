@@ -1,7 +1,7 @@
 import sqlite3
 
 
-def add_table(rank, place):
+def table_add_service(rank, place):
     try:
         conn = sqlite3.connect('./database/sql.db')
         cursor = conn.cursor()
@@ -12,7 +12,7 @@ def add_table(rank, place):
         print("Error adding table:", error)
 
 
-def get_tables():
+def table_get_all_service():
     try:
         conn = sqlite3.connect('./database/sql.db')
         cursor = conn.cursor()
@@ -24,7 +24,7 @@ def get_tables():
         print("Error getting tables:", error)
 
 
-def delete_table(table_id):
+def table_delete_service(table_id):
     try:
         conn = sqlite3.connect('./database/sql.db')
         cursor = conn.cursor()
@@ -34,7 +34,8 @@ def delete_table(table_id):
     except sqlite3.Error as error:
         print("Error deleting table:", error)
 
-def update_table(table_id, rank, place):
+
+def table_update_service(table_id, rank, place):
     try:
         conn = sqlite3.connect('./database/sql.db')
         cursor = conn.cursor()

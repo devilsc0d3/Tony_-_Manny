@@ -1,7 +1,7 @@
 import sqlite3
 
 
-def add_drink(name, recipe, quantity, price):
+def drink_add_service(name, recipe, quantity, price):
     try:
         conn = sqlite3.connect('./database/sql.db')
         cursor = conn.cursor()
@@ -13,7 +13,7 @@ def add_drink(name, recipe, quantity, price):
         print("Error adding drink:", error)
 
 
-def delete_drink(drink_id):
+def drink_delete_service(drink_id):
     try:
         conn = sqlite3.connect('./database/sql.db')
         cursor = conn.cursor()
@@ -24,7 +24,7 @@ def delete_drink(drink_id):
         print("Error deleting drink:", error)
 
 
-def get_drinks():
+def drink_get_all_service():
     try:
         conn = sqlite3.connect('./database/sql.db')
         cursor = conn.cursor()
@@ -36,7 +36,7 @@ def get_drinks():
         print("Error getting drinks:", error)
 
 
-def update_drink(drink_id, name, recipe, quantity, price):
+def drink_update_service(drink_id, name, recipe, quantity, price):
     try:
         conn = sqlite3.connect('./database/sql.db')
         cursor = conn.cursor()
