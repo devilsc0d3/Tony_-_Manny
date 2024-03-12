@@ -17,15 +17,13 @@ def close_database(conn):
     except sqlite3.Error as error:
         print("Error closing database:", error)
 
-
 def create_users_table():
     return """ CREATE TABLE IF NOT EXISTS users (
                                             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                                             first_name VARCHAR(255) NOT NULL,
                                             last_Name VARCHAR(255) NOT NULL,
                                             phone_number INTEGER
-                                        ); """
-
+    ); """
 
 def create_dishes_table():
     return """ CREATE TABLE IF NOT EXISTS dishes (
@@ -35,17 +33,14 @@ def create_dishes_table():
                             recipe VARCHAR(255) NOT NULL,
                             price FLOAT NOT NULL,
                             quantity INTEGER NOT NULL
-                        ); """
-
+    ); """
 
 def create_tables_table():
     return """ CREATE TABLE IF NOT EXISTS tables (
                                     table_id INTEGER PRIMARY KEY AUTOINCREMENT,
                                     rank INTEGER NOT NULL,
                                     place INTEGER NOT NULL
-                                ); """
-
-
+    ); """
 def create_drinks_table():
     return """ CREATE TABLE IF NOT EXISTS drinks (
                 drink_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,8 +48,7 @@ def create_drinks_table():
                 recipe VARCHAR(255) NOT NULL,
                 quantity INTEGER NOT NULL,
                 price FLOAT NOT NULL
-            ); """
-
+    ); """
 
 def create_reservations_table_table():
     return """ CREATE TABLE IF NOT EXISTS reservations_table (
@@ -64,8 +58,7 @@ def create_reservations_table_table():
                             date DATETIME,
                             FOREIGN KEY (user_id) REFERENCES users (user_id),
                             FOREIGN KEY (table_id) REFERENCES tables (table_id)
-                        ); """
-
+    ); """
 
 def create_click_and_collects_table_table():
     return """ CREATE TABLE IF NOT EXISTS click_and_collects (
@@ -77,8 +70,7 @@ def create_click_and_collects_table_table():
                            FOREIGN KEY (user_id) REFERENCES users (user_id),
                            FOREIGN KEY (dish_id) REFERENCES dishe (dish_id),
                            FOREIGN KEY (drink_id) REFERENCES drinks (drink_id)
-                       ); """
-
+    ); """
 
 def create_tables():
     connection = open_database()
@@ -94,7 +86,7 @@ def create_tables():
             reservations_table = create_reservations_table_table()
             click_and_collects_table = create_click_and_collects_table_table()
 
-            # execute requestsclick_and_collects_table
+            # execute requests
             cursor.execute(users_table)
             cursor.execute(dishes_table)
             cursor.execute(tables_table)
