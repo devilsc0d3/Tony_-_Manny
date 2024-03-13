@@ -11,11 +11,11 @@ def user_add_service(first_name, last_name, phone_number):
     close_database(connection)
 
 
-def user_get_service(user_id):
+def user_get_service(user_name):
     connection = open_database()
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM users WHERE user_id = ?",
-                   user_id)
+    cursor.execute("SELECT * FROM users WHERE first_name = ?",
+                   user_name)
     row = cursor.fetchone()
     cursor.close()
     close_database(connection)
@@ -44,7 +44,7 @@ def user_delete_service(user_id):
 
 
 def user_get_all_service():
-    connection = open_database()
+    connection = sqlite3.connect('../database/sql.db')
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM users')
     rows = cursor.fetchall()
