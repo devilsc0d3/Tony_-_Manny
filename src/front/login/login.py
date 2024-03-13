@@ -1,17 +1,22 @@
 import sqlite3
 
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
+from kivy.graphics import RoundedRectangle, Color
 from kivy.uix.button import Button
-from kivy.graphics import Color, RoundedRectangle
+from kivy.uix.label import Label
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.textinput import TextInput
 
-from src.user.user_services import user_get_service
+
+class HomeScreen(Screen):
+    def __init__(self, **kwargs):
+        super(HomeScreen, self).__init__(**kwargs)
+
+        self.add_widget(Label(text='Welcome to Tonny & Manny\'s Home Screen', color=(1, 1, 1, 1), font_size='20sp',
+                              size_hint=(None, None), size=(400, 50), pos_hint={'center_x': 0.5, 'center_y': 0.5}))
 
 
-class LoginScreen(BoxLayout):
-
+class LoginScreen(Screen):
     def __init__(self, **kwargs):
         super(LoginScreen, self).__init__(**kwargs)
 
@@ -29,7 +34,7 @@ class LoginScreen(BoxLayout):
         self.add_widget(self.title_label)
 
         self.username_input = TextInput(hint_text='Username', multiline=False, size_hint=(None, None),
-                                        size=(300, 40), pos_hint={'center_x': 0.5})
+                                        size=(300, 40), pos_hint={'center_x': 0.5, 'center_y': 0.6})
         self.add_widget(self.username_input)
 
         self.password_input = TextInput(hint_text='Password', multiline=False, password=True,
@@ -37,7 +42,7 @@ class LoginScreen(BoxLayout):
         self.add_widget(self.password_input)
 
         self.login_button = Button(text='Login', size_hint=(None, None), size=(150, 50),
-                                   pos_hint={'center_x': 0.5}, background_color=(0.2, 0.4, 0.6, 1))
+                                   pos_hint={'center_x': 0.5})
         self.login_button.bind(on_press=self.check_login)
         self.add_widget(self.login_button)
 
@@ -57,14 +62,17 @@ class LoginScreen(BoxLayout):
 
         if len(rows) > 0:
             print('Login successful!')
+            self.manager.current = 'home'  # Transition to home screen
         else:
             print('Invalid username or password')
 
 
 class MyApp(App):
-
     def build(self):
-        return LoginScreen()
+        sm = ScreenManager()
+        sm.add_widget(LoginScreen(name='login'))
+        sm.add_widget(HomeScreen(name='home'))
+        return sm
 
 
 if __name__ == '__main__':
