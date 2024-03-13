@@ -118,7 +118,11 @@ def fill_tables():
     cur.execute("INSERT INTO tables(rank, place) VALUES (?,?)",
                 (1, 1))
     cur.execute("INSERT INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
-                (1, 'dish1', 'recipe1', 10, 100))
+                (1, 'Poulet au curry', 'Poulet, curry', 10, 100))
+    cur.execute("Insert INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
+                (2, 'puree douce', 'pomme de terre, poivre', 10, 100))
+    cur.execute("INSERT INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
+                (3, 'poulet frit', 'poulet, frit', 10, 100))
     cur.execute("INSERT INTO drinks(name, recipe, quantity, price) VALUES (?,?,?,?)",
                 ('drink1', 'recipe1', 100, 5))
     cur.execute("INSERT INTO reservations_table(user_id, table_id, date) VALUES (?,?,?)",

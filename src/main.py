@@ -1,5 +1,5 @@
 from src.database.init import *
-from src.front.login.login import pages
+from src.front.pages import pages
 
 
 def main():
