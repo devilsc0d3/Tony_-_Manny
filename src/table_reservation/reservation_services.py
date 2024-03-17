@@ -4,7 +4,7 @@ from src.database.init import *
 def reservation_table_add_service(table_id, date_time, user_id):
     connection = open_database()
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO reservation_tables(table_id, date_time, user_id) VALUES (?, ?, ?)",
+    cursor.execute("INSERT INTO reservations_table(table_id, date, user_id) VALUES (?, ?, ?)",
                    (table_id, date_time, user_id))
     connection.commit()
     cursor.close()

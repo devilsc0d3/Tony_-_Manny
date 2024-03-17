@@ -113,22 +113,28 @@ def fill_tables():
     conn = open_database()
     cur = conn.cursor()
 
-    cur.execute("INSERT INTO users(first_name, last_name, phone_number) VALUES (?,?,?)",
-                ('adan', 'Laldy', '454545454545454545'))
+    # cur.execute("INSERT INTO users(first_name, last_name, phone_number) VALUES (?,?,?)",
+    #             ('adan', 'Laldy', '454545454545454545'))
     cur.execute("INSERT INTO tables(rank, place) VALUES (?,?)",
-                (1, 1))
-    cur.execute("INSERT INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
-                (1, 'Poulet au curry', 'Poulet, curry', 10, 100))
-    cur.execute("Insert INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
-                (2, 'puree douce', 'pomme de terre, poivre', 10, 100))
-    cur.execute("INSERT INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
-                (3, 'poulet frit', 'poulet, frit', 10, 100))
-    cur.execute("INSERT INTO drinks(name, recipe, quantity, price) VALUES (?,?,?,?)",
-                ('drink1', 'recipe1', 100, 5))
-    cur.execute("INSERT INTO reservations_table(user_id, table_id, date) VALUES (?,?,?)",
-                (1, 1, '2021-01-01 12:00:00'))
-    cur.execute("INSERT INTO click_and_collects(user_id, dish_id, drink_id, date) VALUES (?,?,?,?)",
-                (1, 1, 1, '2021-01-01 12:00:00'))
+                (1, 4))
+    cur.execute("INSERT INTO tables(rank, place) VALUES (?,?)",
+                (1, 2))
+    cur.execute("INSERT INTO tables(rank, place) VALUES (?,?)",
+                (1, 8))
+    cur.execute("INSERT INTO tables(rank, place) VALUES (?,?)",
+                (1, 6))
+    # cur.execute("INSERT INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
+    #             (1, 'Poulet au curry', 'Poulet, curry', 10, 100))
+    # cur.execute("Insert INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
+    #             (2, 'puree douce', 'pomme de terre, poivre', 10, 100))
+    # cur.execute("INSERT INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
+    #             (3, 'poulet frit', 'poulet, frit', 10, 100))
+    # cur.execute("INSERT INTO drinks(name, recipe, quantity, price) VALUES (?,?,?,?)",
+    #             ('drink1', 'recipe1', 100, 5))
+    # cur.execute("INSERT INTO reservations_table(user_id, table_id, date) VALUES (?,?,?)",
+    #             (1, 1, '2021-01-01 12:00:00'))
+    # cur.execute("INSERT INTO click_and_collects(user_id, dish_id, drink_id, date) VALUES (?,?,?,?)",
+    #             (1, 1, 1, '2021-01-01 12:00:00'))
 
     conn.commit()
     conn.close()
