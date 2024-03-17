@@ -1,4 +1,3 @@
-import sqlite3
 from kivy.graphics import RoundedRectangle, Color
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
@@ -8,16 +7,16 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.checkbox import CheckBox
 
 from src.table.table_services import table_get_all_service
-from src.table_reservation.reservation_services import reservation_table_get_all_service, reservation_table_add_service
+from src.table_reservation.reservation_services import reservation_table_add_service
 
 
 class ReservationScreen(Screen):
     def __init__(self, **kwargs):
         super(ReservationScreen, self).__init__(**kwargs)
-        self.checkbox_dict = {}  # Initialisez le dictionnaire ici
-        self.checked_tables = []  # Initialisez la liste des tables cochées
+        self.checkbox_dict = {}
+        self.checked_tables = []
 
-        layout = ScrollView()  # Utilisez un ScrollView pour gérer le défilement si nécessaire
+        layout = ScrollView()
         self.add_widget(layout)
 
         self.inner_layout = BoxLayout(orientation='vertical', spacing=10, padding=[50, 50])
@@ -65,16 +64,16 @@ class ReservationScreen(Screen):
 
             self.inner_layout.add_widget(table_layout)
 
-            self.checkbox_dict[table_id] = table_checkbox  # Associez l'id de la table à la case à cocher
-            table_checkbox.bind(active=self.on_checkbox_active)  # Lier la case à cocher à la méthode on_checkbox_active
+            self.checkbox_dict[table_id] = table_checkbox
+            table_checkbox.bind(active=self.on_checkbox_active)
 
     def _update_background(self, instance, value):
         self.background.pos = instance.pos
         self.background.size = instance.size
 
     def on_reservation_button_press(self, instance):
-        print("Tables cochées :", self.checked_tables)
-        d = "2021-12-31 23:59:59"  # Remplacez ceci par la date et l'heure de la réservation
+        print("Tables check :", self.checked_tables)
+        d = "2021-12-31 23:59:59"
         for table_id in self.checked_tables:
             reservation_table_add_service(table_id, d, 1)
 
@@ -83,8 +82,8 @@ class ReservationScreen(Screen):
             if chkbox == checkbox:
                 if value:
                     print(f'Table with id {table_id} is active')
-                    self.checked_tables.append(table_id)  # Ajoutez l'id de la table à la liste des tables cochées
+                    self.checked_tables.append(table_id)
                 else:
                     print(f'Table with id {table_id} is inactive')
-                    self.checked_tables.remove(table_id)  # Retirez l'id de la table de la liste des tables cochées
+                    self.checked_tables.remove(table_id)
                 break
