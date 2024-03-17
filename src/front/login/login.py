@@ -25,6 +25,10 @@ class LoginScreen(Screen):
                                  size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.5, 'center_y': 0.8})
         self.add_widget(self.title_label)
 
+        self.subtitle_label = Label(text='Login', color=(1, 1, 1, 1), font_size='30sp',
+                                 size_hint=(None, None), size=(250, 50), pos_hint={'center_x': 0.5, 'center_y': 0.7})
+        self.add_widget(self.subtitle_label)
+
         self.username_input = TextInput(hint_text='Username', multiline=False, size_hint=(None, None),
                                         size=(300, 40), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         self.add_widget(self.username_input)
@@ -34,10 +38,15 @@ class LoginScreen(Screen):
                                         pos_hint={'center_x': 0.5, 'center_y': 0.4})
         self.add_widget(self.password_input)
 
-        self.login_button = Button(text='Login', size_hint=(None, None), size=(150, 50),
-                                   pos_hint={'center_x': 0.5, 'center_y': 0.3})
+        self.login_button = Button(text='Login', size_hint=(None, None), size=(145, 50),
+                                   pos_hint={'center_x': 0.4, 'center_y': 0.3})
         self.login_button.bind(on_press=self.check_login)
         self.add_widget(self.login_button)
+
+        self.registration_button = Button(text='Registration', size_hint=(None, None), size=(145, 50),
+                                   pos_hint={'center_x': 0.6, 'center_y': 0.3})
+        self.registration_button.bind(on_press=self.move_to_registration_page)
+        self.add_widget(self.registration_button)
 
     def _update_background(self, instance, value):
         self.background.pos = instance.pos
@@ -58,3 +67,6 @@ class LoginScreen(Screen):
             self.manager.current = 'test'  # Transition to home screen
         else:
             print('Invalid username or password')
+
+    def move_to_registration_page(self, instance):
+        self.manager.current = 'registration'  # Transition to registration screen
