@@ -1,22 +1,22 @@
 from src.database.init import *
 
 
-def user_add_service(first_name, last_name, phone_number):
+def user_add_service(first_name, last_name, phone_number, password):
     connection = open_database()
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO users(first_name, last_name, phone_number) VALUES (?, ?, ?)",
-                   (first_name, last_name, phone_number))
+    cursor.execute("INSERT INTO users(first_name, last_name, phone_number, password) VALUES (?, ?, ?, ?)",
+                   (first_name, last_name, phone_number, password))
     connection.commit()
     cursor.close()
     close_database(connection)
 
 
-def user_get_service(user_name):
+def user_get_service(first_name, last_name):
     connection = open_database()
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM users WHERE first_name = ?",
-                   user_name)
-    row = cursor.fetchone()
+    cursor.execute("SELECT * FROM users WHERE first_name = ? AND last_name = ?",
+                   (first_name, last_name))
+    row = cursor.fetchall()
     cursor.close()
     close_database(connection)
     return row
