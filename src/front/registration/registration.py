@@ -7,7 +7,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
 
-from src.user.user_controllers import user_add_controller
+from src.user.user_controllers import user_registration_controller
 
 
 class RegistrationScreen(Screen):
@@ -73,14 +73,19 @@ class RegistrationScreen(Screen):
         # hash datas
         hashed_first_name = hashlib.sha256(self.first_name_input.text.encode('utf-8')).hexdigest()
         hashed_last_name = hashlib.sha256(self.last_name_input.text.encode('utf-8')).hexdigest()
-        hashed_phone_number = hashlib.sha256(self.first_name_input.text.encode('utf-8')).hexdigest()
-        hashed_password = hashlib.sha256(self.last_name_input.text.encode('utf-8')).hexdigest()
+        hashed_phone_number = hashlib.sha256(self.phone_number_input.text.encode('utf-8')).hexdigest()
+        hashed_password = hashlib.sha256(self.password_input.text.encode('utf-8')).hexdigest()
+        hashed_confirm_password = hashlib.sha256(self.confirm_password_input.text.encode('utf-8')).hexdigest()
         try:
-            result = user_add_controller(hashed_first_name, hashed_last_name, hashed_phone_number, hashed_password)
+            result = \
+                (user_registration_controller
+                 (hashed_first_name, hashed_last_name,
+                  hashed_phone_number, self.phone_number_input.text,
+                  hashed_password, hashed_confirm_password, self.password_input.text))
         except Exception as err:
-            print(err)
+            print("exception user registration controller: ", err)
         else:
             if result != "":
-                print(result)
+                print("result: ", result)
             else:
-                "User added successfully"
+                print("User added successfully")
