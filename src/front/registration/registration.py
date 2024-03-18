@@ -7,7 +7,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
 
-from src.user.user_controllers import user_add_controller
+from src.user.user_controllers import user_registration_controller
 
 
 class RegistrationScreen(Screen):
@@ -76,7 +76,7 @@ class RegistrationScreen(Screen):
         hashed_phone_number = hashlib.sha256(self.first_name_input.text.encode('utf-8')).hexdigest()
         hashed_password = hashlib.sha256(self.last_name_input.text.encode('utf-8')).hexdigest()
         try:
-            result = user_add_controller(hashed_first_name, hashed_last_name, hashed_phone_number, hashed_password)
+            result = user_registration_controller(hashed_first_name, hashed_last_name, hashed_phone_number, hashed_password)
         except Exception as err:
             print(err)
         else:

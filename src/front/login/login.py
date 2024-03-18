@@ -1,3 +1,4 @@
+import hashlib
 import sqlite3
 
 from kivy.app import App
@@ -6,6 +7,8 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
+
+from src.user.user_controllers import user_login_controller
 
 
 class LoginScreen(Screen):
@@ -53,20 +56,18 @@ class LoginScreen(Screen):
         self.background.size = instance.size
 
     def check_login(self, instance):
-        # Replace this with your actual login logic
-        connection = sqlite3.connect('./database/sql.db')
-        cursor = connection.cursor()
-        cursor.execute('SELECT * FROM users WHERE first_name = ?', (self.username_input.text,))
-        rows = cursor.fetchall()
-        cursor.close()
-        connection.close()
-        print(rows)
-
-        if len(rows) > 0:
-            print('Login successful!')
-            self.manager.current = 'test'  # Transition to home screen
+        # hash datas
+        hashed_phone_number = hashlib.sha256(self.first_name_input.text.encode('utf-8')).hexdigest()
+        hashed_password = hashlib.sha256(self.last_name_input.text.encode('utf-8')).hexdigest()
+        try:
+            result = user_login_controller(hashed_phone_number, hashed_password)
+        except Exception as err:
+            print(err)
         else:
-            print('Invalid username or password')
+            if result != "":
+                print(result)
+            else:
+                "User logged successfully"
 
     def move_to_registration_page(self, instance):
         self.manager.current = 'registration'  # Transition to registration screen
