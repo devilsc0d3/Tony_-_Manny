@@ -1,11 +1,13 @@
-import bcrypt
+import hashlib
+
 from kivy.app import App
 from kivy.graphics import RoundedRectangle, Color
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
-from src.user.user_services import *
+
+from src.user.user_controllers import user_add_controller
 
 
 class RegistrationScreen(Screen):
@@ -58,8 +60,6 @@ class RegistrationScreen(Screen):
         self.login_button.bind(on_press=self.check_login)
         self.add_widget(self.login_button)
         """
-        test = self.check_username
-        print("test:", test)
         self.registration_button = Button(text='Registration', size_hint=(None, None), size=(150, 50),
                                           pos_hint={'center_x': 0.5, 'center_y': 0.2})
         self.registration_button.bind(on_press=self.check_registration)
@@ -70,20 +70,17 @@ class RegistrationScreen(Screen):
         self.background.size = instance.size
 
     def check_registration(self, instance):
+        # hash datas
+        hashed_first_name = hashlib.sha256(self.first_name_input.text.encode('utf-8')).hexdigest()
+        hashed_last_name = hashlib.sha256(self.last_name_input.text.encode('utf-8')).hexdigest()
+        hashed_phone_number = hashlib.sha256(self.first_name_input.text.encode('utf-8')).hexdigest()
+        hashed_password = hashlib.sha256(self.last_name_input.text.encode('utf-8')).hexdigest()
         try:
-            phone_number = int(self.phone_number_input.text)  # convert the input in good integer format
-            hashed_password = bcrypt.hashpw(self.password_input.text.encode('utf-8'),
-                                            bcrypt.gensalt())  # hash the password
-            user_add_service(self.first_name_input.text, self.last_name_input.text, phone_number,
-                             hashed_password)  # add user
-        except ValueError as err:
+            result = user_add_controller(hashed_first_name, hashed_last_name, hashed_phone_number, hashed_password)
+        except Exception as err:
             print(err)
-
-    def check_username(self, instance):
-        if len(user_get_service(self.first_name_input.text, self.last_name_input.text > 0)):
-            return "First name and last name are already taken"
-
-
-"""
-TODO: faire le check_username() -> check_password() / faire l'UI et l'UX avec le boutton Login pour revenir en arrière
-"""
+        else:
+            if result != "":
+                print(result)
+            else:
+                "User added successfully"

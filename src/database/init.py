@@ -21,10 +21,10 @@ def close_database(conn):
 def create_users_table():
     return """ CREATE TABLE IF NOT EXISTS users (
         user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        first_name VARCHAR(255) NOT NULL,
-        last_Name VARCHAR(255) NOT NULL,
-        phone_number INTEGER,
-        password VARCHAR(255) NOT NULL
+        first_name BLOB NOT NULL,
+        last_Name BLOB NOT NULL,
+        phone_number BLOB NOT NULL,
+        password BLOB NOT NULL
     ); """
 
 

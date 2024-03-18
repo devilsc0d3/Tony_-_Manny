@@ -16,11 +16,10 @@ def user_get_service(first_name, last_name):
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM users WHERE first_name = ? AND last_name = ?",
                    (first_name, last_name))
-    row = cursor.fetchone()
+    row = cursor.fetchall()
     cursor.close()
     close_database(connection)
     return row
-
 
 
 def user_update_service(first_name, last_name, phone_number, user_id):
