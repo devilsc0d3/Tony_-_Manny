@@ -32,9 +32,9 @@ class LoginScreen(Screen):
                                  size_hint=(None, None), size=(250, 50), pos_hint={'center_x': 0.5, 'center_y': 0.7})
         self.add_widget(self.subtitle_label)
 
-        self.username_input = TextInput(hint_text='Username', multiline=False, size_hint=(None, None),
+        self.phone_number_input = TextInput(hint_text='Phone number', multiline=False, size_hint=(None, None),
                                         size=(300, 40), pos_hint={'center_x': 0.5, 'center_y': 0.5})
-        self.add_widget(self.username_input)
+        self.add_widget(self.phone_number_input)
 
         self.password_input = TextInput(hint_text='Password', multiline=False, password=True,
                                         size_hint=(None, None), size=(300, 40),
@@ -56,18 +56,17 @@ class LoginScreen(Screen):
         self.background.size = instance.size
 
     def check_login(self, instance):
-        # hash datas
-        hashed_phone_number = hashlib.sha256(self.first_name_input.text.encode('utf-8')).hexdigest()
-        hashed_password = hashlib.sha256(self.last_name_input.text.encode('utf-8')).hexdigest()
+        hashed_phone_number = hashlib.sha256(self.phone_number_input.text.encode('utf-8')).hexdigest()
+        hashed_password = hashlib.sha256(self.password_input.text.encode('utf-8')).hexdigest()
         try:
-            result = user_login_controller(hashed_phone_number, hashed_password)
+            result = user_login_controller(hashed_phone_number, hashed_password, self.phone_number_input.text)
         except Exception as err:
-            print(err)
+            print("exception user login controller: ", err)
         else:
             if result != "":
-                print(result)
+                print("result: ", result)
             else:
-                "User logged successfully"
+                print("User logged successfully")
 
     def move_to_registration_page(self, instance):
         self.manager.current = 'registration'  # Transition to registration screen

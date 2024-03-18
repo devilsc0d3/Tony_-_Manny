@@ -1,3 +1,4 @@
+import hashlib
 import re
 
 from src.user.user_services import *
@@ -21,9 +22,10 @@ def check_good_password_format(password):
 
 def if_good_password(phone_number, password):
     user = user_get_by_phone_number_service(phone_number)
-    if user:
-        stored_password = user[4]  # password stocked in the 4th column of users table
-        if password == stored_password:
+    if user is not None:
+        stored_password = user[0][4]  # password stocked in the 4th column of users table
+        hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        if hashed_password == stored_password:
             return True  # return true if the password match with the right user
     return False  # return false if not
 
@@ -33,3 +35,10 @@ def check_good_phone_number_format(phone_number):
         return True  # return true if the phone number is only digits
     else:
         return False  # return false if not
+
+
+def check_if_passwords_are_same(password, confirm_password):
+    if re.match(password, confirm_password):
+        return True  # return true if passwords are same
+    else:
+        return False  # return false not
