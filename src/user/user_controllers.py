@@ -4,7 +4,7 @@ from src.user.user_services import *
 
 def user_registration_controller(first_name, last_name, phone_number, raw_phone_number,
                                  password, confirm_password, raw_password):
-    result = ""
+    result = "FALSE"
     if not if_username_exist(first_name, last_name):
         result = "Username is already taken"
     elif not check_good_password_format(raw_password):
@@ -23,15 +23,14 @@ def user_registration_controller(first_name, last_name, phone_number, raw_phone_
     return result
 
 
-def user_login_controller(phone_number, password, raw_phone_number):
-    result = ""
+def user_login_controller(phone_number, raw_password, raw_phone_number):
+    result = "FALSE"
     if not check_good_phone_number_format(raw_phone_number):
         result = "Phone has to be only digits"
     else:
         try:
-            if_good_password(phone_number, password)
+            if if_good_password(phone_number, raw_password):
+                result = ""
         except Exception as err:
             print("exception if good password: ", err)
-        else:
-            result = ""
     return result

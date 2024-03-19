@@ -1,12 +1,14 @@
+from kivy.app import App
 from kivy.graphics import RoundedRectangle, Color
+from kivy.storage.jsonstore import JsonStore
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 
 
-class TestScreen(Screen):
+class Home(Screen):
     def __init__(self, **kwargs):
-        super(TestScreen, self).__init__(**kwargs)
+        super(Home, self).__init__(**kwargs)
 
         with self.canvas.before:
             Color(0.2, 0.6, 0.8, 1)  # Background color
@@ -40,3 +42,14 @@ class TestScreen(Screen):
 
     def move_c_c(self, instance):
         self.manager.current = 'c_c'  # Transition to home screen
+
+    def initialize_user(self, user_info):
+        if user_info:
+            phone_number = user_info.get('phone_number')
+            if phone_number:
+                phone_label = Label(text=f'Phone Number: {phone_number}', color=(1, 1, 1, 1), font_size='20sp',
+                                    size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.5})
+                self.add_widget(phone_label)
+        else:
+            print("User information not available.")
+
