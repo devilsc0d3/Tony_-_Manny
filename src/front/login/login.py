@@ -10,10 +10,7 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
-
-from src.user.User import User
 from src.user.user_controllers import *
-from src.user.user_services import user_get_by_phone_number_service
 
 
 class LoginScreen(Screen):
@@ -34,11 +31,11 @@ class LoginScreen(Screen):
         self.add_widget(self.title_label)
 
         self.subtitle_label = Label(text='Login', color=(1, 1, 1, 1), font_size='30sp',
-                                 size_hint=(None, None), size=(250, 50), pos_hint={'center_x': 0.5, 'center_y': 0.7})
+                                    size_hint=(None, None), size=(250, 50), pos_hint={'center_x': 0.5, 'center_y': 0.7})
         self.add_widget(self.subtitle_label)
 
         self.phone_number_input = TextInput(hint_text='Phone number', multiline=False, size_hint=(None, None),
-                                        size=(300, 40), pos_hint={'center_x': 0.5, 'center_y': 0.5})
+                                            size=(300, 40), pos_hint={'center_x': 0.5, 'center_y': 0.5})
         self.add_widget(self.phone_number_input)
 
         self.password_input = TextInput(hint_text='Password', multiline=False, password=True,
@@ -52,7 +49,7 @@ class LoginScreen(Screen):
         self.add_widget(self.login_button)
 
         self.registration_button = Button(text='Registration', size_hint=(None, None), size=(145, 50),
-                                   pos_hint={'center_x': 0.6, 'center_y': 0.3})
+                                          pos_hint={'center_x': 0.6, 'center_y': 0.3})
         self.registration_button.bind(on_press=self.move_to_registration_page)
         self.add_widget(self.registration_button)
 
@@ -77,11 +74,11 @@ class LoginScreen(Screen):
                 first_name = user[0][1]
                 last_name = user[0][2]
                 # add user into session.json
-                session.put("user", first_name=first_name, last_name=last_name, phone_number=self.phone_number_input.text)
+                session.put("user", first_name=first_name, last_name=last_name,
+                            phone_number=self.phone_number_input.text)
 
-                app = App.get_running_app()
-                app.root.current = 'test'
-          
+                self.manager.current = 'test'
+
                 print("User logged successfully")
 
     def move_to_registration_page(self, instance):

@@ -94,6 +94,6 @@ class RegistrationScreen(Screen):
                 session.put("user", first_name=self.first_name_input.text, last_name=self.last_name_input.text,
                             phone_number=self.phone_number_input.text)
 
-                app = App.get_running_app()
-                app.root.current = 'test'
+                self.manager.current = 'test'
+
                 print("User added successfully")
