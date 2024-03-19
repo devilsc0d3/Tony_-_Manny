@@ -46,8 +46,3 @@ class HomeScreen(Screen):
         first_name_label = Label(text=f'First Name: {first_name}', color=(0, 0, 0, 1), font_size='20sp',
                                  size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.5})
         self.add_widget(first_name_label)
-
-        last_name = data['last_name']
-        last_name_label = Label(text=f'Last Name: {last_name}', color=(0, 0, 0, 1), font_size='20sp',
-                                size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.5})
-        self.add_widget(last_name_label)
