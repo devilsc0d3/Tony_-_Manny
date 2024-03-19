@@ -76,17 +76,12 @@ class LoginScreen(Screen):
                 user = user_get_by_phone_number_controller(hashed_phone_number, self.phone_number_input.text)
                 first_name = user[0][1]
                 last_name = user[0][2]
-
                 # add user into session.json
                 session.put("user", first_name=first_name, last_name=last_name, phone_number=self.phone_number_input.text)
-                user_info = session.get('user')
 
-                # redirect to home page with user datas
                 app = App.get_running_app()
                 app.root.current = 'test'
-                home_screen = app.root.get_screen('test')
-                home_screen.initialize_user(user_info)
-
+          
                 print("User logged successfully")
 
     def move_to_registration_page(self, instance):

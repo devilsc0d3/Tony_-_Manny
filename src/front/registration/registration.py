@@ -91,12 +91,9 @@ class RegistrationScreen(Screen):
                 session = JsonStore('session.json')
 
                 # add user into session.json
-                session.put("user", first_name=self.first_name_input.text, last_name=self.last_name_input.text, phone_number=self.phone_number_input.text)
-                user_info = session.get('user')
+                session.put("user", first_name=self.first_name_input.text, last_name=self.last_name_input.text,
+                            phone_number=self.phone_number_input.text)
 
-                # redirect to home page with user datas
                 app = App.get_running_app()
                 app.root.current = 'test'
-                home_screen = app.root.get_screen('test')
-                home_screen.initialize_user(user_info)
                 print("User added successfully")
