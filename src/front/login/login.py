@@ -81,8 +81,8 @@ class LoginScreen(Screen):
 
                 # redirect to home page with user datas
                 app = App.get_running_app()
-                app.root.current = 'home'
-                home_screen = app.root.get_screen('home')
+                app.root.current = 'test'
+                home_screen = app.root.get_screen('test')
                 home_screen.initialize_user(user_info)
 
                 print("User logged successfully")

@@ -14,9 +14,9 @@ Builder.load_file('C:\\Users\\faure_jadlbzp\Desktop\sql project\src\\front\\rese
 class MyApp(MDApp):
     def build(self):
         sm = ScreenManager()
-        sm.add_widget(TestScreen(name='test'))
-
         sm.add_widget(LoginScreen(name='login'))
+
+        sm.add_widget(TestScreen(name='test'))
 
         sm.add_widget(ReservationScreen(name='place'))
         sm.add_widget(MenuScreen(name='c_c'))
