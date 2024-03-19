@@ -21,6 +21,8 @@ class TestScreen(Screen):
     def move_order(self):
         self.manager.current = 'order'
 
+    def move_setting(self):
+        self.manager.current = 'setting'
 
     def on_back_press(self):
         self.manager.current = 'login'
