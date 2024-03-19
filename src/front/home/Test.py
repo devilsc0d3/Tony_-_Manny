@@ -22,17 +22,27 @@ class TestScreen(Screen):
         self.manager.current = 'order'
 
     def move_setting(self):
+        setting_screen = self.manager.get_screen('setting')
+        setting_screen.refresh()
         self.manager.current = 'setting'
 
     def on_back_press(self):
         session = JsonStore('session.json')
-        session.clear() # delete everything in the json
+        session.clear()
         self.manager.current = 'login'
 
     def get_json_datas(self):
         session = JsonStore('session.json')
-        data = session.get('user')
-
+        session = JsonStore('session.json')
+        if session.exists('user'):
+            data = session.get('user')
+        else:
+            data = {
+                'id': "",
+                'first_name': "",
+                'last_name': "",
+                'phone_number': "",
+            }
         first_name = data['first_name']
         first_name_label = Label(text=f'First Name: {first_name}', color=(0, 0, 0, 1), font_size='20sp',
                                  size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.5})

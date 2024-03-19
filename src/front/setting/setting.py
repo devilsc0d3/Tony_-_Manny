@@ -1,4 +1,3 @@
-import hashlib
 
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -11,15 +10,26 @@ from src.user.user_controllers import *
 
 
 class SettingScreen(Screen):
+    data = {}
+
     def __init__(self, **kwargs):
         super(SettingScreen, self).__init__(**kwargs)
         self.get_json_datas()
-
-    def on_pre_enter(self):
-        print("Setting screen")
+        self.refresh()
 
     def on_back_press(self):
         self.manager.current = 'test'
+
+    def refresh(self):
+        # self.clear_widgets()
+        self.clear_user_info_widgets()
+        self.get_json_datas()
+
+    def clear_user_info_widgets(self):
+        # Clear all existing user info widgets
+        for widget in self.children[:]:
+            if isinstance(widget, Label):
+                self.remove_widget(widget)
 
     def phone_number_update(self, user_id):
         hashed_phone_number = hashlib.sha256(self.phone_number_input.text.encode('utf-8')).hexdigest()
@@ -72,11 +82,19 @@ class SettingScreen(Screen):
 
     def get_json_datas(self):
         session = JsonStore('session.json')
-        data = session.get('user')
-
-        # first name
-        first_name = data['first_name']
-        first_name_label = Label(text=f'First Name: {first_name}', color=(0, 0, 0, 1), font_size='20sp',
+        if session.exists('user'):
+            # Si des données utilisateur existent, les récupérer
+            data = session.get('user')
+        else:
+            # Si la session est vide, initialiser les données avec des chaînes vides
+            data = {
+                'id': "",
+                'first_name': "",
+                'last_name': "",
+                'phone_number': "",
+                # ajouter d'autres champs au besoin
+            }
+        first_name_label = Label(text=f'First Name: {data["first_name"]}', color=(0, 0, 0, 1), font_size='20sp',
                                  size_hint=(None, None), size=(300, 50),
                                  pos_hint={'center_x': 0.5, 'center_y': 0.1})
         self.add_widget(first_name_label)
@@ -91,7 +109,7 @@ class SettingScreen(Screen):
         phone_number = data['phone_number']
         self.phone_number_label = Label(text=f'Phone Number: {phone_number}', color=(0, 0, 0, 1), font_size='20sp',
                                         size_hint=(None, None), size=(300, 50),
-                                        pos_hint={'center_x': 0.5, 'center_y': 0.3})
+                                        pos_hint={'center_x': 0.2, 'center_y': 0.5})
         self.add_widget(self.phone_number_label)
         self.phone_number_input = TextInput(hint_text='New Phone Number', multiline=False,
                                             size_hint=(None, None), size=(300, 40),
@@ -103,8 +121,8 @@ class SettingScreen(Screen):
         self.add_widget(phone_number_button)
 
         # password
-        password_label = Label(text='New Password: ***********', color=(0, 0, 0, 1), font_size='20sp',
-                               size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.5, 'center_y': 0.4})
+        password_label = Label(text='New Password : ', color=(0, 0, 0, 1), font_size='20sp',
+                               size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.2, 'center_y': 0.6})
         self.add_widget(password_label)
         self.password_input = TextInput(hint_text='New Password', multiline=False, password=True,
                                         size_hint=(None, None), size=(300, 40),
@@ -114,40 +132,3 @@ class SettingScreen(Screen):
                                  pos_hint={'center_x': 0.8, 'center_y': 0.6})
         password_button.bind(on_press=lambda instance: self.password_update(data['id']))
         self.add_widget(password_button)
-
-        """
-        c'était dans le .kv : 
-        BoxLayout:
-        orientation: 'vertical'
-        Label:
-            text: "First name"
-            color: 0, 0, 0, 1
-            font_size: '20sp'
-            size_hint: None, None
-            size: 300, 50
-            pos_hint: {'center_x': 0.2, 'center_y': 0.2}
-
-        Label:
-            text: "Last name"
-            color: 0, 0, 0, 1
-            font_size: '20sp'
-            size_hint: None, None
-            size: 300, 50
-            pos_hint: {'center_x': 0.2, 'center_y': 0.3}
-
-        Label:
-            text: "Phone number"
-            color: 0, 0, 0, 1
-            font_size: '20sp'
-            size_hint: None, None
-            size: 300, 50
-            pos_hint: {'center_x': 0.2, 'center_y': 0.4}
-
-        Label:
-            text: "Password"
-            color: 0, 0, 0, 1
-            font_size: '20sp'
-            size_hint: None, None
-            size: 300, 50
-            pos_hint: {'center_x': 0.2, 'center_y': 0.5}
-        """
