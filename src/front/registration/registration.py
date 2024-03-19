@@ -2,6 +2,7 @@ import hashlib
 
 from kivy.app import App
 from kivy.graphics import RoundedRectangle, Color
+from kivy.storage.jsonstore import JsonStore
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -71,15 +72,13 @@ class RegistrationScreen(Screen):
 
     def check_registration(self, instance):
         # hash datas
-        hashed_first_name = hashlib.sha256(self.first_name_input.text.encode('utf-8')).hexdigest()
-        hashed_last_name = hashlib.sha256(self.last_name_input.text.encode('utf-8')).hexdigest()
         hashed_phone_number = hashlib.sha256(self.phone_number_input.text.encode('utf-8')).hexdigest()
         hashed_password = hashlib.sha256(self.password_input.text.encode('utf-8')).hexdigest()
         hashed_confirm_password = hashlib.sha256(self.confirm_password_input.text.encode('utf-8')).hexdigest()
         try:
             result = \
                 (user_registration_controller
-                 (hashed_first_name, hashed_last_name,
+                 (self.first_name_input.text, self.last_name_input.text,
                   hashed_phone_number, self.phone_number_input.text,
                   hashed_password, hashed_confirm_password, self.password_input.text))
         except Exception as err:
@@ -88,4 +87,16 @@ class RegistrationScreen(Screen):
             if result != "":
                 print("result: ", result)
             else:
+                # load datas from the session
+                session = JsonStore('session.json')
+
+                # add user into session.json
+                session.put("user", first_name=self.first_name_input.text, last_name=self.last_name_input.text, phone_number=self.phone_number_input.text)
+                user_info = session.get('user')
+
+                # redirect to home page with user datas
+                app = App.get_running_app()
+                app.root.current = 'test'
+                home_screen = app.root.get_screen('test')
+                home_screen.initialize_user(user_info)
                 print("User added successfully")

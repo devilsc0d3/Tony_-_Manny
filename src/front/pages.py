@@ -7,9 +7,9 @@ from src.front.login.login import LoginScreen
 from src.front.reservation_table.reservation import ReservationScreen
 from src.front.registration.registration import RegistrationScreen
 
-Builder.load_file('C:\\Users\\faure_jadlbzp\Desktop\sql project\src\\front\home\\test.kv')
-Builder.load_file('C:\\Users\\faure_jadlbzp\Desktop\sql project\src\\front\click_and_collect\menu.kv')
-Builder.load_file('C:\\Users\\faure_jadlbzp\Desktop\sql project\src\\front\\reservation_table\\reservation.kv')
+Builder.load_file('./front/home/test.kv')
+Builder.load_file('./front/click_and_collect/menu.kv')
+Builder.load_file('./front/reservation_table/reservation.kv')
 
 class MyApp(MDApp):
     def build(self):

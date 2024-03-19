@@ -1,4 +1,6 @@
 import hashlib
+import json
+import re
 import sqlite3
 
 from kivy.app import App
@@ -10,7 +12,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
 
 from src.user.User import User
-from src.user.user_controllers import user_login_controller
+from src.user.user_controllers import *
+from src.user.user_services import user_get_by_phone_number_service
 
 
 class LoginScreen(Screen):
@@ -59,7 +62,6 @@ class LoginScreen(Screen):
 
     def check_login(self, instance):
         hashed_phone_number = hashlib.sha256(self.phone_number_input.text.encode('utf-8')).hexdigest()
-        #hashed_password = hashlib.sha256(self.password_input.text.encode('utf-8')).hexdigest()
         try:
             result = user_login_controller(hashed_phone_number, self.password_input.text, self.phone_number_input.text)
         except Exception as err:
@@ -71,12 +73,12 @@ class LoginScreen(Screen):
                 # load datas from the session
                 session = JsonStore('session.json')
 
+                user = user_get_by_phone_number_controller(hashed_phone_number, self.phone_number_input.text)
+                first_name = user[0][1]
+                last_name = user[0][2]
+
                 # add user into session.json
-                session.put("user",
-                            first_name="",
-                            last_name="",
-                            phone_number=self.phone_number_input.text,
-                            password="")
+                session.put("user", first_name=first_name, last_name=last_name, phone_number=self.phone_number_input.text)
                 user_info = session.get('user')
 
                 # redirect to home page with user datas
