@@ -16,7 +16,7 @@ class MenuScreen(Screen):
         self.load_menu_from_database()
 
     def on_back_press(self):
-        self.manager.current = 'test'
+        self.manager.current = 'home'
 
     def load_menu_from_database(self):
         connection = sqlite3.connect('./database/sql.db')
@@ -42,7 +42,6 @@ class MenuScreen(Screen):
             label = Label(text=str(item[2]), color=(0, 0, 0, 1), size_hint_x=None, width=dp(300))
             menu_item_layout.add_widget(label)
 
-            # Ajouter le BoxLayout de l'élément du menu à inner_layout
             inner_layout.add_widget(menu_item_layout)
 
     def on_validate_button_press(self):

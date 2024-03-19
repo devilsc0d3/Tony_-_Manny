@@ -99,6 +99,6 @@ class RegistrationScreen(Screen):
                 session.put("user", id=user_id, first_name=first_name, last_name=last_name,
                             phone_number=self.phone_number_input.text)
 
-                self.manager.current = 'test'
+                self.manager.current = 'home'
 
                 print("User added successfully")

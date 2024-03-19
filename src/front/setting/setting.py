@@ -1,11 +1,8 @@
-
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-
 from kivy.storage.jsonstore import JsonStore
 from kivy.uix.screenmanager import Screen
 from kivy.uix.textinput import TextInput
-
 from src.user.user_controllers import *
 
 
@@ -18,7 +15,7 @@ class SettingScreen(Screen):
         self.refresh()
 
     def on_back_press(self):
-        self.manager.current = 'test'
+        self.manager.current = 'home'
 
     def refresh(self):
         # self.clear_widgets()
@@ -86,7 +83,6 @@ class SettingScreen(Screen):
             # Si des données utilisateur existent, les récupérer
             data = session.get('user')
         else:
-            # Si la session est vide, initialiser les données avec des chaînes vides
             data = {
                 'id': "",
                 'first_name': "",
@@ -121,7 +117,9 @@ class SettingScreen(Screen):
         self.add_widget(phone_number_button)
 
         # password
-        password_label = Label(text='New Password : ', color=(0, 0, 0, 1), font_size='20sp',
+        password_label = Label(text='New Password : ' + "x" * len(data['phone_number']),
+                               color=(0, 0, 0, 1),
+                               font_size='20sp',
                                size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.2, 'center_y': 0.6})
         self.add_widget(password_label)
         self.password_input = TextInput(hint_text='New Password', multiline=False, password=True,

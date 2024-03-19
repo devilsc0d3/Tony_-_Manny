@@ -11,12 +11,12 @@ def reservation_table_add_service(table_id, date_time, user_id):
     close_database(connection)
 
 
-def reservation_table_get_service(reservation_table_id):
+def reservation_table_get_service(user_id):
     connection = open_database()
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM reservation_tables WHERE reservation_table_id = ?",
-                   reservation_table_id)
-    row = cursor.fetchone()
+    cursor.execute("SELECT * FROM reservations_table WHERE user_id = ?",
+                   (int(user_id),))
+    row = cursor.fetchall()
     cursor.close()
     close_database(connection)
     return row
@@ -26,7 +26,7 @@ def reservation_table_update_service(table_id, date_time, user_id, reservation_t
     connection = open_database()
     cursor = connection.cursor()
     cursor.execute(
-        "UPDATE reservation_tables SET table_id = ?, date_time = ?, user_id = ?"
+        "UPDATE reservations_table SET table_id = ?, date_time = ?, user_id = ?"
         "WHERE reservation_table_id = ?",
         (table_id, date_time, date_time, user_id, reservation_table_id))
     connection.commit()

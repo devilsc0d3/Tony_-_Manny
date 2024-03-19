@@ -4,12 +4,12 @@ from kivy.properties import ObjectProperty
 from kivy.uix.label import Label
 
 
-class TestScreen(Screen):
+class HomeScreen(Screen):
     place_button = ObjectProperty(None)
     c_and_c_button = ObjectProperty(None)
 
     def __init__(self, **kwargs):
-        super(TestScreen, self).__init__(**kwargs)
+        super(HomeScreen, self).__init__(**kwargs)
         self.get_json_datas()
 
     def move_place(self):
@@ -32,7 +32,6 @@ class TestScreen(Screen):
         self.manager.current = 'login'
 
     def get_json_datas(self):
-        session = JsonStore('session.json')
         session = JsonStore('session.json')
         if session.exists('user'):
             data = session.get('user')
