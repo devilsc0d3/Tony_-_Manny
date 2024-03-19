@@ -21,8 +21,8 @@ def close_database(conn):
 def create_users_table():
     return """ CREATE TABLE IF NOT EXISTS users (
         user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        first_name BLOB NOT NULL,
-        last_Name BLOB NOT NULL,
+        first_name VARCHAR(30) NOT NULL,
+        last_Name VARCHAR(30) NOT NULL,
         phone_number BLOB NOT NULL,
         password BLOB NOT NULL
     ); """
@@ -32,7 +32,7 @@ def create_dishes_table():
     return """ CREATE TABLE IF NOT EXISTS dishes (
         dish_id INTEGER PRIMARY KEY AUTOINCREMENT,
         rank INTEGER NOT NULL,
-        title VARCHAR(255) NOT NULL,
+        title VARCHAR(30) NOT NULL,
         recipe VARCHAR(255) NOT NULL,
         price FLOAT NOT NULL,
         quantity INTEGER NOT NULL
@@ -50,7 +50,7 @@ def create_tables_table():
 def create_drinks_table():
     return """ CREATE TABLE IF NOT EXISTS drinks (
         drink_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name VARCHAR(255) NOT NULL,
+        name VARCHAR(30) NOT NULL,
         recipe VARCHAR(255) NOT NULL,
         quantity INTEGER NOT NULL,
         price FLOAT NOT NULL

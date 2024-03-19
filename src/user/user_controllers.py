@@ -7,6 +7,8 @@ def user_registration_controller(first_name, last_name, phone_number, raw_phone_
     result = "FALSE"
     if not if_username_exist(first_name, last_name):
         result = "Username is already taken"
+    elif not if_phone_number_exist(phone_number):
+        result = "Phone number is already taken"
     elif not check_good_password_format(raw_password):
         result = "Password require 8 characters minimum, 1 lowercase, 1 uppercase, 1 digit and 1 special character"
     elif not check_good_phone_number_format(raw_phone_number):
@@ -33,4 +35,16 @@ def user_login_controller(phone_number, raw_password, raw_phone_number):
                 result = ""
         except Exception as err:
             print("exception if good password: ", err)
+    return result
+
+
+def user_get_by_phone_number_controller(phone_number, raw_phone_number):
+    result = ["FALSE"]
+    if not check_good_phone_number_format(raw_phone_number):
+        result = ["Phone has to be only digits"]
+    else:
+        try:
+            result = user_get_by_phone_number_service(phone_number)
+        except Exception as err:
+            print("exception user add service: ", err)
     return result

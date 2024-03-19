@@ -13,6 +13,9 @@ Builder.load_file('C:\\Users\\faure_jadlbzp\Desktop\sql project\src\\front\click
 Builder.load_file('C:\\Users\\faure_jadlbzp\Desktop\sql project\src\\front\\reservation_table\\reservation.kv')
 Builder.load_file('C:\\Users\\faure_jadlbzp\Desktop\sql project\src\\front\\order\\order.kv')
 
+Builder.load_file('./front/home/test.kv')
+Builder.load_file('./front/click_and_collect/menu.kv')
+Builder.load_file('./front/reservation_table/reservation.kv')
 
 class MyApp(MDApp):
     def build(self):
