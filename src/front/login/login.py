@@ -3,11 +3,13 @@ import sqlite3
 
 from kivy.app import App
 from kivy.graphics import RoundedRectangle, Color
+from kivy.storage.jsonstore import JsonStore
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
 
+from src.user.User import User
 from src.user.user_controllers import user_login_controller
 
 
@@ -57,15 +59,32 @@ class LoginScreen(Screen):
 
     def check_login(self, instance):
         hashed_phone_number = hashlib.sha256(self.phone_number_input.text.encode('utf-8')).hexdigest()
-        hashed_password = hashlib.sha256(self.password_input.text.encode('utf-8')).hexdigest()
+        #hashed_password = hashlib.sha256(self.password_input.text.encode('utf-8')).hexdigest()
         try:
-            result = user_login_controller(hashed_phone_number, hashed_password, self.phone_number_input.text)
+            result = user_login_controller(hashed_phone_number, self.password_input.text, self.phone_number_input.text)
         except Exception as err:
             print("exception user login controller: ", err)
         else:
             if result != "":
                 print("result: ", result)
             else:
+                # load datas from the session
+                session = JsonStore('session.json')
+
+                # add user into session.json
+                session.put("user",
+                            first_name="",
+                            last_name="",
+                            phone_number=self.phone_number_input.text,
+                            password="")
+                user_info = session.get('user')
+
+                # redirect to home page with user datas
+                app = App.get_running_app()
+                app.root.current = 'home'
+                home_screen = app.root.get_screen('home')
+                home_screen.initialize_user(user_info)
+
                 print("User logged successfully")
 
     def move_to_registration_page(self, instance):
