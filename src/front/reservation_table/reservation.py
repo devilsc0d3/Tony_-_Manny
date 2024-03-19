@@ -40,7 +40,7 @@ class ReservationScreen(Screen):
             menu_item_layout.add_widget(checkbox)
             self.checkbox_dict[item[0]] = checkbox
 
-            label = Label(text='table ' + str(item[0]) + ' - places ' + str(item[2]), color=(0, 0, 0, 1),
+            label = Label(text='table ' + str(item[0]) + ' - place ' + str(item[2]), color=(0, 0, 0, 1),
                           size_hint_x=None, width=dp(300))
             menu_item_layout.add_widget(label)
 

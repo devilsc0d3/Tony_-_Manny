@@ -19,6 +19,14 @@
         size: 300, 50
         pos_hint: {'center_x': 0.5, 'top': 0.9}
 
+    BackCard:
+        image: "C:\\Users\\faure_jadlbzp\\Desktop\\sql project\\src\\images\\back.png"
+        text: ""
+        size_hint: 0.2, 0.2
+        size: 144, 144
+        pos_hint: {'center_x': 0.06, 'center_y': 0.9}
+        on_press: root.on_back_press()
+
     ElementCard:
         image: "C:\\Users\\faure_jadlbzp\\Desktop\\sql project\\src\\images\\calendar.png"
         text: "reservation"
@@ -27,6 +35,26 @@
         size: 300, 150
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         on_press: root.move_place()
+
+
+    ElementCard:
+        image: "C:\\Users\\faure_jadlbzp\\Desktop\\sql project\\src\\images\\todo.png"
+        text: "orders"
+        subtext: ""
+        size_hint: 0.2, 0.2
+        size: 300, 150
+        pos_hint: {'center_x': 0.25, 'center_y': 0.35}
+        on_press: root.move_order()
+
+    ElementCard:
+        image: "C:\\Users\\faure_jadlbzp\\Desktop\\sql project\\src\\images\\setting.png"
+        text: "settings"
+        subtext: ""
+        size_hint: 0.2, 0.2
+        size: 300, 150
+        pos_hint: {'center_x': 0.75, 'center_y': 0.35}
+        on_press: root.move_place()
+
 
     ElementCard:
         image: "C:\\Users\\faure_jadlbzp\\Desktop\\sql project\\src\\images\\food.png"
@@ -68,3 +96,26 @@
             halign: "center"
             text: root.text
             font_style: "H6"
+
+
+<BackCard@MDCard>:
+    canvas.before:
+        Color:
+            rgba: 0.9, 0.9, 0.9, 0
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [25, 25, 25, 25]  # Adjust the radius values as needed
+
+    md_bg_color: 1, 1, 1, 0
+
+    padding: dp(15)
+    spacing: dp(15)
+    image: ""
+
+    orientation: 'vertical'
+
+    Image:
+        source: root.image
+        size_hint_y: None
+        height: dp(100)

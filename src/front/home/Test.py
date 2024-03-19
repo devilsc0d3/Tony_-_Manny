@@ -1,7 +1,6 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.label import Label
-from kivy.uix.button import Button
 
 
 class TestScreen(Screen):
@@ -17,6 +16,11 @@ class TestScreen(Screen):
     def move_c_c(self):
         self.manager.current = 'c_c'
 
+    def move_order(self):
+        self.manager.current = 'order'
+
+
+
     def initialize_user(self, user_info):
         if user_info:
             phone_number = user_info.get('phone_number')
@@ -26,5 +30,6 @@ class TestScreen(Screen):
                 self.add_widget(phone_label)
         else:
             print("User information not available.")
-
+    def on_back_press(self):
+        self.manager.current = 'login'
 

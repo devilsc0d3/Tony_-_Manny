@@ -37,7 +37,7 @@ def reservation_table_update_service(table_id, date_time, user_id, reservation_t
 def reservation_table_delete_service(reservation_table_id):
     connection = open_database()
     cursor = connection.cursor()
-    cursor.execute(f"DELETE FROM reservation_tables WHERE reservation_table_id = ?", reservation_table_id)
+    cursor.execute("DELETE FROM reservations_table WHERE reservation_id = ?", (reservation_table_id,))
     connection.commit()
     cursor.close()
     close_database(connection)
@@ -46,7 +46,7 @@ def reservation_table_delete_service(reservation_table_id):
 def reservation_table_get_all_service():
     connection = open_database()
     cursor = connection.cursor()
-    cursor.execute('SELECT * FROM reservation_tables')
+    cursor.execute('SELECT * FROM reservations_table')
     rows = cursor.fetchall()
     cursor.close()
     close_database(connection)
