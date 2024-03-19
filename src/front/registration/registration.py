@@ -8,7 +8,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
 
-from src.user.user_controllers import user_registration_controller
+from src.user.user_controllers import user_registration_controller, user_get_by_phone_number_controller
 
 
 class RegistrationScreen(Screen):
@@ -90,8 +90,13 @@ class RegistrationScreen(Screen):
                 # load datas from the session
                 session = JsonStore('session.json')
 
+                user = user_get_by_phone_number_controller(hashed_phone_number, self.phone_number_input.text)
+                user_id = user[0][0]
+                first_name = user[0][1]
+                last_name = user[0][2]
+
                 # add user into session.json
-                session.put("user", first_name=self.first_name_input.text, last_name=self.last_name_input.text,
+                session.put("user", id=user_id, first_name=first_name, last_name=last_name,
                             phone_number=self.phone_number_input.text)
 
                 self.manager.current = 'test'

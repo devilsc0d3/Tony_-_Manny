@@ -35,13 +35,25 @@ def user_get_by_phone_number_service(phone_number):
 
 
 # UPDATE
-def user_update_service(first_name, last_name, phone_number, user_id):
+def user_update_phone_number_service(phone_number, user_id):
     connection = open_database()
     cursor = connection.cursor()
     cursor.execute(
-        "UPDATE users SET first_name = ?, last_name = ?, phone_number = ?"
-        "WHERE click_and_collect_id = ?",
-        (first_name, last_name, phone_number, user_id))
+        "UPDATE users SET phone_number = ?"
+        "WHERE user_id = ?",
+        (phone_number, user_id))
+    connection.commit()
+    cursor.close()
+    close_database(connection)
+
+
+def user_update_password_service(password, user_id):
+    connection = open_database()
+    cursor = connection.cursor()
+    cursor.execute(
+        "UPDATE users SET password = ?"
+        "WHERE user_id = ?",
+        (password, user_id))
     connection.commit()
     cursor.close()
     close_database(connection)

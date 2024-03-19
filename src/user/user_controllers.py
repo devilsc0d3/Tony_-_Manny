@@ -48,3 +48,33 @@ def user_get_by_phone_number_controller(phone_number, raw_phone_number):
         except Exception as err:
             print("exception user add service: ", err)
     return result
+
+
+def user_update_phone_number_controller(new_phone_number, raw_phone_number, user_id):
+    result = "FALSE"
+    if not check_good_phone_number_format(raw_phone_number):
+        result = "Phone has to be only digits"
+    elif not if_phone_number_exist(new_phone_number):
+        result = "Phone number is already taken"
+    else:
+        try:
+            user_update_phone_number_service(new_phone_number, user_id)
+        except Exception as err:
+            print("exception update phone number service", err)
+        else:
+            result = ""
+    return result
+
+
+def user_update_password_controller(new_password, raw_password, user_id):
+    result = "FALSE"
+    if not check_good_password_format(raw_password):
+        result = "Password require 8 characters minimum, 1 lowercase, 1 uppercase, 1 digit and 1 special character"
+    else:
+        try:
+            user_update_password_service(new_password, user_id)
+        except Exception as err:
+            print("exception update phone number service", err)
+        else:
+            result = ""
+    return result

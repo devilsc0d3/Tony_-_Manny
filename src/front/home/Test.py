@@ -10,7 +10,7 @@ class TestScreen(Screen):
 
     def __init__(self, **kwargs):
         super(TestScreen, self).__init__(**kwargs)
-        # self.get_json_datas()
+        self.get_json_datas()
 
     def move_place(self):
         self.manager.current = 'place'
@@ -25,6 +25,8 @@ class TestScreen(Screen):
         self.manager.current = 'setting'
 
     def on_back_press(self):
+        session = JsonStore('session.json')
+        session.clear() # delete everything in the json
         self.manager.current = 'login'
 
     def get_json_datas(self):

@@ -43,6 +43,7 @@ def check_if_passwords_are_same(password, confirm_password):
     else:
         return False  # return false not
 
+
 def if_phone_number_exist(phone_number):
     if len(user_get_by_phone_number_service(phone_number)) > 0:
         return False  # return false if user already exist

@@ -71,10 +71,11 @@ class LoginScreen(Screen):
                 session = JsonStore('session.json')
 
                 user = user_get_by_phone_number_controller(hashed_phone_number, self.phone_number_input.text)
+                user_id = user[0][0]
                 first_name = user[0][1]
                 last_name = user[0][2]
                 # add user into session.json
-                session.put("user", first_name=first_name, last_name=last_name,
+                session.put("user", id=user_id, first_name=first_name, last_name=last_name,
                             phone_number=self.phone_number_input.text)
 
                 self.manager.current = 'test'
