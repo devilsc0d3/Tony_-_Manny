@@ -51,3 +51,14 @@ def table_get_all_service():
     cursor.close()
     close_database(connection)
     return rows
+
+
+def table_get_all_free_service():
+   # by date + 2hours
+    connection = open_database()
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM tables WHERE table_id NOT IN (SELECT table_id FROM reservations_table WHERE date_time > datetime("now", "+2 hours"))')
+    rows = cursor.fetchall()
+    cursor.close()
+    close_database(connection)
+    return rows

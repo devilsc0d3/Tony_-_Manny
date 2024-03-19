@@ -119,6 +119,12 @@ def fill_tables():
     """
     cur.execute("INSERT INTO tables(rank, place) VALUES (?,?)",
                 (1, 1))
+    cur.execute("INSERT INTO tables(rank, place) VALUES (?,?)",
+                (1, 4))
+    cur.execute("INSERT INTO tables(rank, place) VALUES (?,?)",
+                (1, 8))
+    cur.execute("INSERT INTO tables(rank, place) VALUES (?,?)",
+                (1, 12))
     cur.execute("INSERT INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",
                 (1, 'Poulet au curry', 'Poulet, curry', 10, 100))
     cur.execute("Insert INTO dishes(rank, title, recipe, price, quantity) VALUES (?,?,?,?,?)",

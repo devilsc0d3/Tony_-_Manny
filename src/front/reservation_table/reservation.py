@@ -1,12 +1,12 @@
-from kivy.graphics import RoundedRectangle, Color
+from datetime import datetime
+
+from kivy.metrics import dp
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
+from kivy.uix.checkbox import CheckBox
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
-from kivy.uix.scrollview import ScrollView
-from kivy.uix.checkbox import CheckBox
 
-from src.table.table_services import table_get_all_service
+from src.table.table_services import table_get_all_service, table_add_service
 from src.table_reservation.reservation_services import reservation_table_add_service
 
 
@@ -15,75 +15,52 @@ class ReservationScreen(Screen):
         super(ReservationScreen, self).__init__(**kwargs)
         self.checkbox_dict = {}
         self.checked_tables = []
+        self.load_menu_from_database()
 
-        layout = ScrollView()
-        self.add_widget(layout)
-
-        self.inner_layout = BoxLayout(orientation='vertical', spacing=10, padding=[50, 50])
-        layout.add_widget(self.inner_layout)
-
-        with self.canvas.before:
-            Color(0.2, 0.6, 0.8, 1)  # Couleur de fond
-            self.background = RoundedRectangle(size=self.size, pos=self.pos, radius=[0])
-        self.bind(size=self._update_background, pos=self._update_background)
-
-        self.back = Button(text="Back", size_hint=(None, None), size=(100, 50),
-                           pos_hint={'center_x': 0.1, 'center_y': 0.9})
-        self.back.bind(on_press=self.on_back_press)
-        self.add_widget(self.back)
-
-        self.title_label = Label(text='Reservation', color=(1, 1, 1, 1), font_size='30sp',
-                                 size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.5, 'center_y': 0.8})
-        self.add_widget(self.title_label)
-
-        self.reservation_button = Button(text="Réserver", size_hint=(None, None), size=(100, 50),
-                                         pos_hint={'center_x': 0.9, 'center_y': 0.9})
-        self.reservation_button.bind(on_press=self.on_reservation_button_press)
-        self.add_widget(self.reservation_button)
-
-        self.load_reservations_from_database()
-
-    def on_back_press(self, instance):
+    def on_back_press(self):
         self.manager.current = 'test'
 
-    def load_reservations_from_database(self):
-        tables = table_get_all_service()
+    def load_menu_from_database(self):
+        menu_items = table_get_all_service()
 
-        for table in tables:
-            table_id = table[0]
-            rank = table[1]
-            places = table[2]
+        inner_layout = self.ids.inner_layout
+        inner_layout.clear_widgets()
 
-            table_layout = BoxLayout(orientation='horizontal', spacing=10, size_hint_y=None, height=50)
-            table_checkbox = CheckBox(size_hint=(None, None), size=(50, 50))
-            table_label = Label(text=f"Table {rank} - {places} places", color=(1, 1, 1, 1), font_size='20sp',
-                                size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.5, 'center_y': 0.8})
+        for item in menu_items:
+            menu_item_layout = (
+                BoxLayout
+                (size_hint_y=None,
+                 height=dp(50),
+                 spacing=10)
+            )
 
-            table_layout.add_widget(table_checkbox)
-            table_layout.add_widget(table_label)
 
-            self.inner_layout.add_widget(table_layout)
+            checkbox = CheckBox(size_hint=(None, None), group="table_select", size=(dp(30), dp(30)))
+            checkbox.bind(active=self.on_checkbox_active)
+            menu_item_layout.add_widget(checkbox)
+            self.checkbox_dict[item[0]] = checkbox
 
-            self.checkbox_dict[table_id] = table_checkbox
-            table_checkbox.bind(active=self.on_checkbox_active)
+            label = Label(text='table ' + str(item[0]) + ' - places ' + str(item[2]), color=(0, 0, 0, 1),
+                          size_hint_x=None, width=dp(300))
+            menu_item_layout.add_widget(label)
 
-    def _update_background(self, instance, value):
-        self.background.pos = instance.pos
-        self.background.size = instance.size
-
-    def on_reservation_button_press(self, instance):
-        print("Tables check :", self.checked_tables)
-        d = "2021-12-31 23:59:59"
-        for table_id in self.checked_tables:
-            reservation_table_add_service(table_id, d, 1)
+            inner_layout.add_widget(menu_item_layout)
 
     def on_checkbox_active(self, checkbox, value):
-        for table_id, chkbox in self.checkbox_dict.items():
+        for item_id, chkbox \
+                in (self.checkbox_dict.items()):
             if chkbox == checkbox:
+                item_id = int(item_id)
                 if value:
-                    print(f'Table with id {table_id} is active')
-                    self.checked_tables.append(table_id)
+                    print(f'Checkbox with id {item_id} is active')
+                    self.checked_tables.append(item_id)
                 else:
-                    print(f'Table with id {table_id} is inactive')
-                    self.checked_tables.remove(table_id)
+                    print(f'Checkbox with id {item_id} is inactive')
+                    self.checked_tables.remove(item_id)
                 break
+
+    def on_validate_button_press(self):
+        print("Tables check :", self.checked_tables)
+        d = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # d = self.ids.date_picker.text
+        reservation_table_add_service(self.checked_tables[0], d, 1)
