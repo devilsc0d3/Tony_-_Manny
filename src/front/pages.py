@@ -20,12 +20,13 @@ class MyApp(MDApp):
     def build(self):
         sm = ScreenManager()
         sm.add_widget(LoginScreen(name='login'))
-        sm.add_widget(TestScreen(name='test'))
+        sm.add_widget(SettingScreen(name='setting'))
+        home_screen = TestScreen(name='test', setting_instance=sm.get_screen('setting'))
+        sm.add_widget(home_screen)
         sm.add_widget(OrderScreen(name='order'))
         sm.add_widget(ReservationScreen(name='place'))
         sm.add_widget(MenuScreen(name='c_c'))
         sm.add_widget(RegistrationScreen(name='registration'))
-        sm.add_widget(SettingScreen(name='setting'))
 
         return sm
 

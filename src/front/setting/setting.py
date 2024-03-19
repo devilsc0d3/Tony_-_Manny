@@ -1,5 +1,3 @@
-import hashlib
-
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 
@@ -14,6 +12,7 @@ class SettingScreen(Screen):
     def __init__(self, **kwargs):
         super(SettingScreen, self).__init__(**kwargs)
         self.get_json_datas()
+
 
     def on_pre_enter(self):
         print("Setting screen")
@@ -72,7 +71,15 @@ class SettingScreen(Screen):
 
     def get_json_datas(self):
         session = JsonStore('session.json')
-        data = session.get('user')
+        if session.exists('user'):
+            data = session.get('user')
+        else:
+            data = {
+                "id": "",
+                "first_name": "",
+                "last_name": "",
+                "phone_number": ""
+            }
 
         # first name
         first_name = data['first_name']
@@ -115,6 +122,20 @@ class SettingScreen(Screen):
         password_button.bind(on_press=lambda instance: self.password_update(data['id']))
         self.add_widget(password_button)
 
+    def update_user_info(self):
+        # Clear existing user info widgets
+        """
+        self.remove_widget(self.first_name_label)
+        self.remove_widget(self.last_name_label)
+        self.remove_widget(self.phone_number_label)
+        """
+        self.clear_user_info_widgets()
+
+    def clear_user_info_widgets(self):
+        # Clear all existing user info widgets
+        for widget in self.children[:]:
+            if isinstance(widget, Label):
+                self.remove_widget(widget)
         """
         c'était dans le .kv : 
         BoxLayout:

@@ -8,10 +8,13 @@ class TestScreen(Screen):
     place_button = ObjectProperty(None)
     c_and_c_button = ObjectProperty(None)
 
-    def __init__(self, **kwargs):
+    def __init__(self, setting_instance, **kwargs):
         super(TestScreen, self).__init__(**kwargs)
-        self.get_json_datas()
+        #self.get_json_datas()
+        self.setting_instance = setting_instance
 
+    def update_user_info_from_settings(self):
+        self.setting_instance.update_user_info()
     def move_place(self):
         self.manager.current = 'place'
 
@@ -27,18 +30,13 @@ class TestScreen(Screen):
     def on_back_press(self):
         session = JsonStore('session.json')
         session.clear() # delete everything in the json
+        self.update_user_info_from_settings()
         self.manager.current = 'login'
 
     def get_json_datas(self):
         session = JsonStore('session.json')
-        data = session.get('user')
 
-        first_name = data['first_name']
-        first_name_label = Label(text=f'First Name: {first_name}', color=(0, 0, 0, 1), font_size='20sp',
-                                 size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.5})
-        self.add_widget(first_name_label)
 
-        last_name = data['last_name']
-        last_name_label = Label(text=f'Last Name: {last_name}', color=(0, 0, 0, 1), font_size='20sp',
-                                size_hint=(None, None), size=(300, 50), pos_hint={'center_x': 0.5})
-        self.add_widget(last_name_label)
+
+
+
