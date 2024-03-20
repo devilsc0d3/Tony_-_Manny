@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from kivy.metrics import dp
+from kivy.storage.jsonstore import JsonStore
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.label import Label
@@ -18,7 +19,7 @@ class ReservationScreen(Screen):
         self.load_menu_from_database()
 
     def on_back_press(self):
-        self.manager.current = 'test'
+        self.manager.current = 'home'
 
     def load_menu_from_database(self):
         menu_items = table_get_all_service()
@@ -28,12 +29,10 @@ class ReservationScreen(Screen):
 
         for item in menu_items:
             menu_item_layout = (
-                BoxLayout
-                (size_hint_y=None,
-                 height=dp(50),
-                 spacing=10)
+                BoxLayout(size_hint_y=None,
+                          height=dp(50),
+                          spacing=10)
             )
-
 
             checkbox = CheckBox(size_hint=(None, None), group="table_select", size=(dp(30), dp(30)))
             checkbox.bind(active=self.on_checkbox_active)
@@ -62,5 +61,18 @@ class ReservationScreen(Screen):
     def on_validate_button_press(self):
         print("Tables check :", self.checked_tables)
         d = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        # d = self.ids.date_picker.text
-        reservation_table_add_service(self.checked_tables[0], d, 1)
+        data = self.load_data()
+        reservation_table_add_service(self.checked_tables[0], d, data['id'])
+
+    def load_data(self):
+        session = JsonStore('session.json')
+        if session.exists('user'):
+            data = session.get('user')
+        else:
+            data = {
+                'id': "",
+                'first_name': "",
+                'last_name': "",
+                'phone_number': "",
+            }
+        return data

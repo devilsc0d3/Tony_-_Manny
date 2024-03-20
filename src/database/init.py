@@ -63,6 +63,7 @@ def create_reservations_table_table():
         user_id INTEGER,
         table_id INTEGER,
         date DATETIME,
+        commentary VARCHAR(255),
         FOREIGN KEY (user_id) REFERENCES users (user_id),
         FOREIGN KEY (table_id) REFERENCES tables (table_id)
     ); """
@@ -133,8 +134,8 @@ def fill_tables():
                 (3, 'poulet frit', 'poulet, frit', 10, 100))
     cur.execute("INSERT INTO drinks(name, recipe, quantity, price) VALUES (?,?,?,?)",
                 ('drink1', 'recipe1', 100, 5))
-    cur.execute("INSERT INTO reservations_table(user_id, table_id, date) VALUES (?,?,?)",
-                (1, 1, '2021-01-01 12:00:00'))
+    cur.execute("INSERT INTO reservations_table(user_id, table_id, date, commentary) VALUES (?,?,?,?)",
+                (1, 1, '2021-01-01 12:00:00', "pas ouf"))
     cur.execute("INSERT INTO click_and_collects(user_id, dish_id, drink_id, date) VALUES (?,?,?,?)",
                 (1, 1, 1, '2021-01-01 12:00:00'))
 

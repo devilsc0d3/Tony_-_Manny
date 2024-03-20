@@ -17,7 +17,7 @@
         font_size: '30sp'
         size_hint: None, None
         size: 300, 50
-        pos_hint: {'center_x': 0.5, 'top': 0.9}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.9}
 
     BackCard:
         image: "../src/images/back.png"
@@ -25,28 +25,3 @@
         size: 144, 144
         pos_hint: {'center_x': 0.06, 'center_y': 0.9}
         on_press: root.on_back_press()
-
-
-
-<BackCard@MDCard>:
-    canvas.before:
-        Color:
-            rgba: 0.9, 0.9, 0.9, 0
-        RoundedRectangle:
-            size: self.size
-            pos: self.pos
-            radius: [25, 25, 25, 25]  # Adjust the radius values as needed
-
-    md_bg_color: 1, 1, 1, 0
-
-    padding: dp(15)
-    spacing: dp(15)
-    image: ""
-
-    orientation: 'vertical'
-
-
-    Image:
-        source: root.image
-        size_hint_y: None
-        height: dp(100)

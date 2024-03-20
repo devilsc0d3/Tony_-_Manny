@@ -38,35 +38,10 @@
         on_press: root.on_back_press()
 
     Button:
-        text: "Valider"
+        text: "Valid"
         size_hint: None, None
         size: 100, 50
         pos_hint: {'center_x': 0.8, 'center_y': 0.5}
         color: 1, 1, 1, 1
         background_color: 0, 0, 0, 1
         on_press: root.on_validate_button_press()
-
-
-<BackCard@MDCard>:
-    canvas.before:
-        Color:
-            rgba: 0.9, 0.9, 0.9, 0
-        RoundedRectangle:
-            size: self.size
-            pos: self.pos
-            radius: [25, 25, 25, 25]  # Adjust the radius values as needed
-
-    md_bg_color: 1, 1, 1, 0
-
-    padding: dp(15)
-    spacing: dp(15)
-    image: ""
-
-    orientation: 'vertical'
-
-    Image:
-        source: root.image
-        size_hint_y: None
-        height: dp(100)
-
-
