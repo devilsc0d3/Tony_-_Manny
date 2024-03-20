@@ -19,11 +19,17 @@ Tonny & Manny est une application de gestion de restaurant permettant aux utilis
 
 ## Visuel
 
-<div style="text-align:center">
+<p align="center">
   <img src="img.png" alt="Image 1">
+</p>
+
+<p align="center">
   <img src="img_1.png" alt="Image 2">
+</p>
+
+<p align="center">
   <img src="img_2.png" alt="Image 3">
-</div>
+</p>
 
 ## Durée de développement
 - **Durée initiale prévue**: 7 jours. Nous nous sommes fixé un défi de développement rapide pour réaliser le projet dans un laps de temps restreint.
