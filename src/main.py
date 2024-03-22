@@ -1,5 +1,5 @@
-from src.database.init import *
-from src.front.pages import pages
+from src.backend.database.init import *
+from src.frontend.pages import pages
 
 
 def main():

@@ -20,15 +20,15 @@ Tonny & Manny est une application de gestion de restaurant permettant aux utilis
 ## Visuel
 
 <p align="center">
-  <img src="img.png" alt="Image 1">
+  <img src="docs/img.png" alt="Image 1">
 </p>
 
 <p align="center">
-  <img src="img_1.png" alt="Image 2">
+  <img src="docs/img_1.png" alt="Image 2">
 </p>
 
 <p align="center">
-  <img src="img_2.png" alt="Image 3">
+  <img src="docs/img_2.png" alt="Image 3">
 </p>
 
 ## Durée de développement

@@ -1,0 +1,121 @@
+<HomeScreen>:
+    canvas.before:
+        Color:
+            rgba: 255/255, 255/255, 255/255, 1
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [0]
+
+    orientation: 'vertical'
+    spacing: 20
+    padding: [50, 50]
+
+    Label:
+        text: "Tonny & Manny"
+        color: 0, 0, 0, 1
+        font_size: '30sp'
+        size_hint: None, None
+        size: 300, 50
+        pos_hint: {'center_x': 0.5, 'top': 0.9}
+
+    BackCard:
+        image: "../src/frontend/images/back.png"
+        text: ""
+        size_hint: 0.2, 0.2
+        size: 144, 144
+        pos_hint: {'center_x': 0.06, 'center_y': 0.9}
+        on_press: root.on_back_press()
+
+    ElementCard:
+        image: "../src/frontend/images/calendar.png"
+        text: "reservation"
+        subtext: ""
+        size_hint: 0.2, 0.2
+        size: 300, 150
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        on_press: root.move_place()
+
+
+    ElementCard:
+        image: "../src/frontend/images/todo.png"
+        text: "orders"
+        subtext: ""
+        size_hint: 0.2, 0.2
+        size: 300, 150
+        pos_hint: {'center_x': 0.25, 'center_y': 0.35}
+        on_press: root.move_order()
+
+    ElementCard:
+        image: "../src/frontend/images/setting.png"
+        text: "settings"
+        subtext: ""
+        size_hint: 0.2, 0.2
+        size: 300, 150
+        pos_hint: {'center_x': 0.75, 'center_y': 0.35}
+        on_press: root.move_setting()
+
+
+    ElementCard:
+        image: "../src/frontend/images/food.png"
+        text: "food"
+        size_hint: 0.2, 0.2
+        size: 300, 150
+        pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+        on_press: root.move_c_c()
+
+<ElementCard@MDCard>:
+    canvas.before:
+        Color:
+            rgba: 0.9, 0.9, 0.9, 1
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [25, 25, 25, 25]  # Adjust the radius values as needed
+
+    md_bg_color: 1, 1, 1, 0
+
+    padding: dp(15)
+    spacing: dp(15)
+    ripple_behavior: True
+    image: ""
+    text: ""
+    items_count: ""
+    subtext: ""
+
+    orientation: 'vertical'
+
+    Image:
+        source: root.image
+        size_hint_y: None
+        height: dp(100)
+
+    MDBoxLayout:
+        orientation: 'horizontal'
+        MDLabel:
+            halign: "center"
+            text: root.text
+            font_style: "H6"
+
+
+<BackCard@MDCard>:
+    canvas.before:
+        Color:
+            rgba: 0.9, 0.9, 0.9, 0
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [25, 25, 25, 25]  # Adjust the radius values as needed
+
+    md_bg_color: 1, 1, 1, 0
+
+    padding: dp(15)
+    spacing: dp(15)
+    image: ""
+
+    orientation: 'vertical'
+
+    Image:
+        source: root.image
+        size_hint_y: None
+        height: dp(100)
